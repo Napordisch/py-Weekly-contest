@@ -19,9 +19,10 @@ for vertical1 in verticals.keys():
             common_points = verticals[vertical1].intersection(verticals[vertical2])
             if len(common_points) >= 2:
                 common_points = sorted(common_points)
-            for item_index in range(len(common_points) - 1):
-                areas.add((common_points[item_index + 1] - common_points[item_index]) * (vertical2 - vertical1))
-
+            for horizontal1 in common_points:
+                for horizontal2 in common_points:
+                    if horizontal1 < horizontal2:
+                        areas.add((vertical2 - vertical1) * (horizontal2 - horizontal1))
 
 if areas:
     print(min(areas))
