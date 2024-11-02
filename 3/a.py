@@ -34,9 +34,15 @@ def stream_switcher(stdout=None, stderr=None):
     original_stderr = sys.stderr
 
     if stdout is not None:
-        sys.stdout = stdout().__enter__()
+        new_stdout = stdout().__enter__()
+    else:
+        new_stdout = original_stdout
     if stderr is not None:
-        sys.stderr = stderr().__enter__()
+        new_stderr = stderr().__enter__()
+    else:
+        new_stderr = original_stderr
+    sys.stdout = new_stdout
+    sys.stderr = new_stderr
 
     try:
         yield
